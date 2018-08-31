@@ -101,8 +101,18 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'discussions.update'
     ]);
 
-    /*Route::get('discussion/unmark/best/reply/{id}', [
+    Route::get('reply/edit/{id}', [
+        'uses' => 'RepliesController@edit',
+        'as' => 'reply.edit'
+    ]);
+
+    Route::post('reply/update/{id}', [
+        'uses' => 'RepliesController@update',
+        'as' => 'reply.update'
+    ]);
+
+    Route::get('discussion/unmark/best/reply/{id}', [
         'uses' => 'RepliesController@unmark_best_answer',
         'as' => 'discussion.unmark.best.answer'
-    ]);*/
+    ]);
 });

@@ -29,7 +29,7 @@ class RepliesController extends Controller
 
         $like->delete();
 
-        Session::flash('success','You unliked the reply');
+        Session::flash('success', 'You unliked the reply');
 
         return redirect()->back();
     }
@@ -45,12 +45,12 @@ class RepliesController extends Controller
         $reply->user->points += 100;
         $reply->user->save();
 
-        Session::flash('success','Reply has been marked as the best answer');
+        Session::flash('success', 'Reply has been marked as the best answer');
 
         return redirect()->back();
     }
 
-    /*public function unmark_best_answer($id)
+    public function unmark_best_answer($id)
     {
         $reply = Reply::find($id);
 
@@ -64,5 +64,27 @@ class RepliesController extends Controller
         Session::flash('success','Reply has been unmarked');
 
         return redirect()->back();
-    }*/
+    }
+
+    public function edit($id)
+    {
+        return view('replies.edit', ['reply' => Reply::find($id)]);
+    }
+
+    public function update($id)
+    {
+        $this->validate(request(), [
+            'content_form' => 'required'
+        ]);
+
+        $reply = Reply::find($id);
+
+        $reply->content = request()->content_form;
+
+        $reply->save();
+
+        Session::flash('success', 'Reply updated');
+
+        return redirect()->route('discussion', ['slug' => $reply->discussion->slug]);
+    }
 }

@@ -70,12 +70,13 @@
                 <div class="title m-b-md">
                     <a href="/forum" style="text-decoration: none; color: black">Laravel forum</a>
                 </div>
-
+                @if(!Auth::check())
                 <div class="links">
                     <a href="{{ route('social.auth', ['provider' => 'github']) }}">GitHub</a>
                     <a href="{{ route('social.auth', ['provider' => 'facebook']) }}">Facebook</a>
                     <a href="/login">Email</a>
                 </div>
+                @endif
             </div>
         </div>
     </body>

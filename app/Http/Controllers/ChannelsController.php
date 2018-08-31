@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class ChannelsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +37,7 @@ class ChannelsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -53,7 +59,7 @@ class ChannelsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -64,7 +70,7 @@ class ChannelsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -75,8 +81,8 @@ class ChannelsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -88,7 +94,7 @@ class ChannelsController extends Controller
 
         $channel->save();
 
-        Session::flash('success','Channel edited success');
+        Session::flash('success', 'Channel edited success');
 
         return redirect()->route('channels.index');
     }
@@ -96,14 +102,14 @@ class ChannelsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         Channel::destroy($id);
 
-        Session::flash('success','Channel deleted');
+        Session::flash('success', 'Channel deleted');
 
         return redirect()->route('channels.index');
     }

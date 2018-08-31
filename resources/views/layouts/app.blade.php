@@ -17,6 +17,9 @@
     <script src="{{ asset('js/toastr.min.js') }}"></script>
     <link href="{{ asset('css/toastr.min.css') }}" rel="stylesheet">
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css">
+
     <!-- Fonts -->
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
@@ -79,7 +82,7 @@
         </div>
     </nav>
 
-        @if ($errors->any())
+    @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -87,7 +90,7 @@
                 @endforeach
             </ul>
         </div>
-        @endif
+    @endif
 
     <main class="container">
         <div class="row">
@@ -112,11 +115,24 @@
                                 <a href="/forum?filter=solved" style="text-decoration: none">Answered discussions</a>
                             </li>
                             <li class="list-group-item">
-                                <a href="/forum?filter=unsolved" style="text-decoration: none">Unanswered discussions</a>
+                                <a href="/forum?filter=unsolved" style="text-decoration: none">Unanswered
+                                    discussions</a>
                             </li>
                         </ul>
                     </div>
-                </div><br>
+                    @if(Auth::check())
+                        @if(Auth::user()->admin)
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <a href="/channels" style="text-decoration: none">All channels</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        @endif
+                    @endif
+                </div>
+                <br>
                 <div class="card">
                     <div class="card-header">
                         Channels
@@ -125,7 +141,8 @@
                         <ul class="list-group">
                             @foreach($channels as $channel)
                                 <li class="list-group-item">
-                                    <a href="{{ route('channel', ['slug' => $channel->slug]) }}" style="text-decoration: none">{{ $channel->title }}</a>
+                                    <a href="{{ route('channel', ['slug' => $channel->slug]) }}"
+                                       style="text-decoration: none">{{ $channel->title }}</a>
                                 </li>
                             @endforeach
                         </ul>
@@ -156,6 +173,8 @@
     @if(Session::has('success'))
            toastr.success("{{ Session::get('success') }}")
     @endif
+
+    hljs.initHighlightingOnLoad();
 </script>
 </body>
 </html>
