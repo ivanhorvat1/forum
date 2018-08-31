@@ -127,6 +127,9 @@
                                     <li class="list-group-item">
                                         <a href="/channels" style="text-decoration: none">All channels</a>
                                     </li>
+                                    <li class="list-group-item">
+                                        <a href="/channels/create" style="text-decoration: none">Create channel</a>
+                                    </li>
                                 </ul>
                             </div>
                         @endif
