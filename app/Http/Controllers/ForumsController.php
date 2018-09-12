@@ -12,8 +12,6 @@ class ForumsController extends Controller
 {
     public function index()
     {
-        //$discussion = Discussion::orderBy('created_at', 'desc')->paginate(3);
-
         switch (request('filter')){
             case 'me':
                 $results = Discussion::where('user_id', Auth::id())->paginate(3);
@@ -40,7 +38,9 @@ class ForumsController extends Controller
                         array_push($unanswered, $d);
                     }
                 }
+
                 $results = new Paginator($unanswered, 3);
+                $results->setPath('forum?filter=unsolved');
                 break;
 
             default:
